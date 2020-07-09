@@ -1,6 +1,7 @@
 #ifndef SPHERE_HPP
 #define SPHERE_HPP
 
+#define PI 3.14159265359
 #include <cmath>
 #include <glm/vec3.hpp>
 #include "shape.hpp"

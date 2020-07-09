@@ -6,9 +6,9 @@ Sphere::Sphere (glm::vec3 center, float radius):
 {}
 
 float Sphere::area() const {
-    return 4 * M_PI * std::pow(radius_, 2);
+    return 4 * PI * std::pow(radius_, 2);
 }
 
 float Sphere::volume() const {
-    return (4 / 3) * M_PI * std::pow(radius_, 3);
+    return 4 / 3 * PI * std::pow(radius_, 3);
 }
