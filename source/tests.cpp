@@ -68,10 +68,34 @@ TEST_CASE ("describe_box_area", "[box_area]") {
     expected = 1.5f;
     result = package.area ();
     REQUIRE (Approx(result) == expected);
-    // Box minimum = 0, maximum = 0
+    // Box minimum = 10, 5.5, 2.2, maximum = 30.5, 22, 4.7
     package =  {{10.0f, 5.5f, 2.2f}, {30.5f, 22.0f, 4.7f}};
     expected = 861.5f;
     result = package.area ();
+    REQUIRE (Approx(result) == expected);
+}
+
+TEST_CASE ("describe_box_volume", "[box_volume]") {
+     // Box minimum = 0, 0, 0, maximum = 0, 0, 0
+    Box package {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}};
+    float result = 0.0f;
+    float expected = 0.0f;
+    result = package.volume ();
+    REQUIRE (Approx(result) == expected);
+    // Box minimum = -1, -1, -1, maximum = 1, 1, 1
+    package = {{-1.0f, -1.0f, -1.0f}, {1.0f, 1.0f, 1.0f}};
+    expected = 8.0f;
+    result = package.volume ();
+    REQUIRE (Approx(result) == expected);
+    // Box minimum = 0, 0, 0, maximum = 0.5, 0.5, 0.5
+    package =  {{0.0f, 0.0f, 0.0f}, {0.5f, 0.5f, 0.5f}};
+    expected = 0.125f;
+    result = package.volume ();
+    REQUIRE (Approx(result) == expected);
+    // Box minimum = 10, 5.5, 2.2, maximum = 30.5, 22, 4.7
+    package =  {{10.0f, 5.5f, 2.2f}, {30.5f, 22.0f, 4.7f}};
+    expected = 845.625;
+    result = package.volume ();
     REQUIRE (Approx(result) == expected);
 }
 
