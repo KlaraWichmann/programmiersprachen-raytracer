@@ -6,7 +6,7 @@
 
 class Box : public Shape {
     public:
-        Box (glm::vec3 minimum, glm::vec3 maximum);
+        Box (glm::vec3 minimum, glm::vec3 maximum, std::string name, Color color);
         //Oberflächenberechnung des Quaders
         float area() const override;
         //Volumenberechnung des Quaders

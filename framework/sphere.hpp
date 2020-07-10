@@ -8,7 +8,7 @@
 
 class Sphere : public Shape {
     public:
-        Sphere (glm::vec3 center, float radius);
+        Sphere (glm::vec3 center, float radius, std::string name, Color color);
         //Oberflächenberechnung der Kugel
         float area() const override;
         //Volumenberechnung der Kugel
