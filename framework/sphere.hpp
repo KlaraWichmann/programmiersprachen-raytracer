@@ -13,6 +13,8 @@ class Sphere : public Shape {
         float area() const override;
         //Volumenberechnung der Kugel
         float volume() const override;
+        //Ausgabe der Kugel
+        std::ostream& print(std::ostream& os) const override;
     private:
         glm::vec3 center_;
         float radius_ = 0.0f;

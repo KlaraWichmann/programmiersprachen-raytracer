@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_RUNNER
 #include <catch.hpp>
+#include <iostream>
 #include "sphere.hpp"
 #include "box.hpp"
 
@@ -97,6 +98,28 @@ TEST_CASE ("describe_box_volume", "[box_volume]") {
     expected = 845.625;
     result = package.volume ();
     REQUIRE (Approx(result) == expected);
+}
+
+TEST_CASE ("describe_box_print", "[box_print]") {
+    std::cout << "---------------------BOX PRINT--------------------------\n";
+     // Box minimum = 0, 0, 0, maximum = 0, 0, 0
+    Box package {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, "DHL", {255.0f, 255.0f, 255.0f}};
+    package.print(std::cout);
+    std::cout << "-----------------------------------------------\n";
+    // Box minimum = 10, 5.5, 2.2, maximum = 30.5, 22, 4.7
+    package =  {{10.0f, 5.5f, 2.2f}, {30.5f, 22.0f, 4.7f}, "UPS", {255.0f, 255.0f, 255.0f}};
+    package.print(std::cout);
+}
+
+TEST_CASE ("describe_sphere_print", "[sphere_print]") {
+    std::cout << "---------------------SPHERE PRINT--------------------------\n";
+  // Sphere r = 2.5, center 0, 0, 0
+        Sphere planet {{0.0f, 0.0f, 0.0f}, 2.5f, "Pluto", {255.0f, 255.0f, 255.0f}};
+        planet.print(std::cout);
+        std::cout << "-----------------------------------------------\n";
+        // Sphere r = -3.7, center -1, -1, -1
+        planet = {{-1.0f, -1.0f, -1.0f}, -3.7f, "Saturn", {255.0f, 255.0f, 255.0f}};
+        planet.print(std::cout);
 }
 
 int main(int argc, char *argv[])

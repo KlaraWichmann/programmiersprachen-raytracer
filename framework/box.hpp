@@ -11,6 +11,8 @@ class Box : public Shape {
         float area() const override;
         //Volumenberechnung des Quaders
         float volume() const override;
+        //Ausgabe der Kugel
+        std::ostream& print(std::ostream& os) const override;
     private:
         glm::vec3 minimum_;
         glm::vec3 maximum_;
