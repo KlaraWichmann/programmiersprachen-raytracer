@@ -1,8 +1,13 @@
 #define CATCH_CONFIG_RUNNER
 #include <catch.hpp>
 #include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtx/intersect.hpp>
+#include <glm/vec3.hpp>
 #include "sphere.hpp"
 #include "box.hpp"
+#include "ray.hpp"
+#include "hit_point.hpp"
 
 TEST_CASE ("describe_sphere_area", "[sphere_area]") {
     // Sphere r = 2.5, center 0, 0, 0
@@ -120,6 +125,75 @@ TEST_CASE ("describe_sphere_print", "[sphere_print]") {
         // Sphere r = -3.7, center -1, -1, -1
         planet = {{-1.0f, -1.0f, -1.0f}, -3.7f, "Saturn", {255.0f, 255.0f, 255.0f}};
         planet.print(std::cout);
+}
+
+TEST_CASE("intersect_ray_sphere", "[intersect]") {
+    // Ray
+    glm::vec3 ray_origin{0.0f, 0.0f, 0.0f}; // ray direction has to be normalized !
+    // you can use:
+    // v = glm::normalize(some_vector)
+    glm::vec3 ray_direction{0.0f, 0.0f, 1.0f};
+    
+    // Sphere
+    glm::vec3 sphere_center{0.0f ,0.0f, 5.0f};
+    float sphere_radius{1.0f};
+    
+    float distance = 0.0f;
+    auto result = glm::intersectRaySphere(
+        ray_origin , ray_direction ,
+        sphere_center ,
+        sphere_radius * sphere_radius, // squared radius !!!
+        distance
+    );
+    REQUIRE(distance == Approx(4.0f));
+}
+
+TEST_CASE("intersect2_ray_sphere", "[intersect2]") {
+    // Ray
+    Ray ray;
+    ray.origin = {0.0f, 0.0f, 0.0f};
+    ray.direction = {0.0f, 0.0f, 1.0f};
+    
+    // Sphere r = 1, center 0, 0, 5
+    Sphere planet {{0.0f, 0.0f, 5.0f}, 1.0f, "Pluto", {255.0f, 255.0f, 255.0f}};
+    
+    HitPoint hit = planet.intersect(ray);
+    REQUIRE(hit.intersection == 1);
+    REQUIRE(hit.distance == Approx(4.0f));
+    REQUIRE(hit.name == "Pluto");
+    REQUIRE(hit.color.r == 255.0f);
+    REQUIRE(hit.color.g == 255.0f);
+    REQUIRE(hit.color.b == 255.0f);
+    REQUIRE(hit.intersection_point.x == 0.0f);
+    REQUIRE(hit.intersection_point.y == 0.0f);
+    REQUIRE(hit.intersection_point.z == 4.0f);
+    REQUIRE(hit.direction.x == 0.0f);
+    REQUIRE(hit.direction.y == 0.0f);
+    REQUIRE(hit.direction.z == 1.0f);
+}
+
+TEST_CASE("no_intersect_ray_sphere", "[no_intersect]") {
+    // Ray
+    Ray ray;
+    ray.origin = {1.0f, 0.0f, 0.0f};
+    ray.direction = {0.0f, 2.0f, 5.0f};
+    
+    // Sphere r = 2.5, center 0, 0, 0
+    Sphere planet {{0.0f, 0.0f, 0.0f}, 1.0f, "Pluto", {255.0f, 255.0f, 255.0f}};
+    
+    HitPoint hit = planet.intersect(ray);
+    REQUIRE(hit.intersection == 0);
+    REQUIRE(hit.distance == Approx(0.0f));
+    REQUIRE(hit.name == "");
+    REQUIRE(hit.color.r == 0.0f);
+    REQUIRE(hit.color.g == 0.0f);
+    REQUIRE(hit.color.b == 0.0f);
+    REQUIRE(hit.intersection_point.x == 0.0f);
+    REQUIRE(hit.intersection_point.y == 0.0f);
+    REQUIRE(hit.intersection_point.z == 0.0f);
+    REQUIRE(hit.direction.x == 0.0f);
+    REQUIRE(hit.direction.y == 0.0f);
+    REQUIRE(hit.direction.z == 0.0f);
 }
 
 int main(int argc, char *argv[])

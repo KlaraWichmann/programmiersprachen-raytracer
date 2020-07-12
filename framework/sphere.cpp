@@ -23,3 +23,33 @@ std::ostream& Sphere::print(std::ostream& os) const {
     os << "Volumen: " << this->volume() << std::endl;
     return os;
 }
+
+HitPoint Sphere::intersect (Ray r) {
+    HitPoint hit;
+    float distance = 0.0f;
+    glm::vec3 point = {0.0f, 0.0f, 0.0f};
+    glm::vec3 normal = {0.0f, 0.0f, 0.0f};
+    bool result = glm::intersectRaySphere (
+        r.origin , glm::normalize(r.direction) ,
+        center_ ,
+        radius_ * radius_,
+        distance
+    );
+    glm::intersectRaySphere (
+        r.origin , glm::normalize(r.direction) ,
+        center_ ,
+        radius_ * radius_,
+        point,
+        normal
+    );
+    hit.intersection = result;
+    if (result) {
+        hit.distance = distance;
+        hit.name = name_;
+        hit.color = color_;
+        hit.intersection_point = point;
+        hit.direction = glm::normalize(r.direction);
+    }
+    return hit;
+    
+}
