@@ -6,10 +6,7 @@
 
 class Shape {
     public:
-        Shape (std::string name, Color color):
-            name_ {name},
-            color_ {color}
-        {}
+        Shape (std::string name, Color color);
         //Oberflächenberechnung eines Objekts (rein virtuelle Methode)
         virtual float area() const = 0;
         //Volumenberechnung eines Objekts (rein virtuelle Methode)
