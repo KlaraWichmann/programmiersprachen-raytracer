@@ -1,18 +1,18 @@
 #include "sphere.hpp"
 
 Sphere::Sphere (glm::vec3 center, float radius, std::string name, Color color):
-    center_ {center},
-    radius_ {radius},
     //Aufrufen des Basis Konstruktors
-    Shape (name, color)
-{}
+    Shape (name, color),
+    center_ {center},
+    radius_ {radius}
+    {}
 
 float Sphere::area() const {
     return 4 * PI * std::pow(radius_, 2);
 }
 
 float Sphere::volume() const {
-    return 4 / 3 * PI * std::pow(radius_, 3);
+    return 4.0f / 3.0f * PI * std::pow(radius_, 3);
 }
 
 std::ostream& Sphere::print(std::ostream& os) const {

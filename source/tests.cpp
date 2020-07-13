@@ -39,22 +39,22 @@ TEST_CASE ("describe_sphere_volume", "[sphere_volume]") {
     float result = 0.0f;
     float expected = 65.44984f;
     result = planet.volume ();
-    //REQUIRE (Approx(result) == expected);
+    REQUIRE (Approx(result) == expected);
     // Sphere r = -3.7, center -1, -1, -1
     planet = {{-1.0f, -1.0f, -1.0f}, -3.7f, "Pluto", {255.0f, 255.0f, 255.0f}};
     expected = -212.17479f;
     result = planet.volume ();
-    //REQUIRE (Approx(result) == expected);
+    REQUIRE (Approx(result) == expected);
     // Sphere r = 0, center 1, 1, 1
     planet =  {{1.0f, 1.0f, 1.0f}, 0.0f, "Pluto", {255.0f, 255.0f, 255.0f}};
     expected = 0.0f;
     result = planet.volume ();
-    //REQUIRE (Approx(result) == expected);
+    REQUIRE (Approx(result) == expected);
     // Sphere r = 13.2, center = 255, 255, 255
     planet =  {{255.0f, 255.0f, 255.0f}, 13.2f, "Pluto", {255.0f, 255.0f, 255.0f}};
     expected = 9634.08343f;
     result = planet.volume ();
-    //REQUIRE (Approx(result) == expected);
+    REQUIRE (Approx(result) == expected);
 }
 
 TEST_CASE ("describe_box_area", "[box_area]") {

@@ -1,13 +1,13 @@
 #include "box.hpp"
 
 Box::Box (glm::vec3 minimum, glm::vec3 maximum, std::string name, Color color):
+    //Aufrufen des Basis Konstruktors
+    Shape (name, color),
     minimum_ {minimum},
     maximum_ {maximum},
     width_ {maximum_.x - minimum_.x},
     height_ {maximum_.y - minimum_.y},
-    depth_ {maximum_.z - minimum_.z},
-    //Aufrufen des Basis Konstruktors
-    Shape (name, color)
+    depth_ {maximum_.z - minimum_.z}
 {}
 
 float Box::area() const {
