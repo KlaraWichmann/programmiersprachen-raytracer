@@ -174,6 +174,30 @@ TEST_CASE("intersect2_ray_sphere", "[intersect2]") {
     REQUIRE(hit.direction.z == 1.0f);
 }
 
+TEST_CASE("intersect2_ray_sphere2", "[intersect3]") {
+    // Ray
+    Ray ray;
+    ray.origin = {0.0f, 0.0f, 0.0f};
+    ray.direction = {0.0f, 0.0f, 1.0f};
+    
+    // Sphere r = 1, center 0, 0, 5
+    Sphere planet {{0.0f, 0.0f, 15.0f}, 1.0f, "Ralf", {25.0f, 20.0f, 0.0f}};
+    
+    HitPoint hit = planet.intersect(ray);
+    REQUIRE(hit.intersection == 1);
+    REQUIRE(hit.distance == Approx(14.0f));
+    REQUIRE(hit.name == "Ralf");
+    REQUIRE(hit.color.r == 25.0f);
+    REQUIRE(hit.color.g == 20.0f);
+    REQUIRE(hit.color.b == 0.0f);
+    REQUIRE(hit.intersection_point.x == 0.0f);
+    REQUIRE(hit.intersection_point.y == 0.0f);
+    REQUIRE(hit.intersection_point.z == 14.0f);
+    REQUIRE(hit.direction.x == 0.0f);
+    REQUIRE(hit.direction.y == 0.0f);
+    REQUIRE(hit.direction.z == 1.0f);
+}
+
 TEST_CASE("no_intersect_ray_sphere", "[no_intersect]") {
     // Ray
     Ray ray;
