@@ -2,11 +2,14 @@
 #define SHAPE_HPP
 
 #include <string>
+#include <iostream>
 #include "color.hpp"
 
 class Shape {
     public:
         Shape (std::string name, Color color);
+        //virtueller Destruktor
+        virtual ~Shape();
         //Oberflächenberechnung eines Objekts (rein virtuelle Methode)
         virtual float area() const = 0;
         //Volumenberechnung eines Objekts (rein virtuelle Methode)

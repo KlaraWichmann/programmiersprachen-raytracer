@@ -13,11 +13,9 @@
 class Sphere : public Shape {
     public:
         Sphere (glm::vec3 center, float radius, std::string name, Color color);
-        //Oberflächenberechnung der Kugel
+        ~Sphere ();
         float area() const override;
-        //Volumenberechnung der Kugel
         float volume() const override;
-        //Ausgabe der Kugel
         std::ostream& print(std::ostream& os) const override;
         HitPoint intersect (Ray r);
     private:

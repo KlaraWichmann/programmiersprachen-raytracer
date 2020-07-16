@@ -58,8 +58,10 @@ TEST_CASE ("describe_sphere_volume", "[sphere_volume]") {
 }
 
 TEST_CASE ("describe_box_area", "[box_area]") {
+    // Box minimum = 0, 0, 0, maximum = 0, -1, 0 !Warnung vom Konstruktor erwartet
+    Box package {{0.0f, 0.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, "DHL", {255.0f, 255.0f, 255.0f}};
     // Box minimum = 0, 0, 0, maximum = 0, 0, 0
-    Box package {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, "DHL", {255.0f, 255.0f, 255.0f}};
+    package = {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, "DHL", {255.0f, 255.0f, 255.0f}};
     float result = 0.0f;
     float expected = 0.0f;
     result = package.area ();
@@ -109,22 +111,22 @@ TEST_CASE ("describe_box_print", "[box_print]") {
     std::cout << "---------------------BOX PRINT--------------------------\n";
      // Box minimum = 0, 0, 0, maximum = 0, 0, 0
     Box package {{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, "DHL", {255.0f, 255.0f, 255.0f}};
-    package.print(std::cout);
+    std::cout << package;
     std::cout << "-----------------------------------------------\n";
     // Box minimum = 10, 5.5, 2.2, maximum = 30.5, 22, 4.7
     package =  {{10.0f, 5.5f, 2.2f}, {30.5f, 22.0f, 4.7f}, "UPS", {255.0f, 255.0f, 255.0f}};
-    package.print(std::cout);
+    std::cout << package;
 }
 
 TEST_CASE ("describe_sphere_print", "[sphere_print]") {
     std::cout << "---------------------SPHERE PRINT--------------------------\n";
-  // Sphere r = 2.5, center 0, 0, 0
-        Sphere planet {{0.0f, 0.0f, 0.0f}, 2.5f, "Pluto", {255.0f, 255.0f, 255.0f}};
-        planet.print(std::cout);
-        std::cout << "-----------------------------------------------\n";
-        // Sphere r = -3.7, center -1, -1, -1
-        planet = {{-1.0f, -1.0f, -1.0f}, -3.7f, "Saturn", {255.0f, 255.0f, 255.0f}};
-        planet.print(std::cout);
+    // Sphere r = 2.5, center 0, 0, 0
+    Sphere planet {{0.0f, 0.0f, 0.0f}, 2.5f, "Pluto", {255.0f, 255.0f, 255.0f}};
+    std::cout << planet;
+    std::cout << "-----------------------------------------------\n";
+    // Sphere r = -3.7, center -1, -1, -1
+    planet = {{-1.0f, -1.0f, -1.0f}, -3.7f, "Saturn", {255.0f, 255.0f, 255.0f}};
+    std::cout << planet;
 }
 
 TEST_CASE("intersect_ray_sphere", "[intersect]") {
@@ -195,6 +197,27 @@ TEST_CASE("no_intersect_ray_sphere", "[no_intersect]") {
     REQUIRE(hit.direction.y == 0.0f);
     REQUIRE(hit.direction.z == 0.0f);
 }
+
+TEST_CASE("shape_destructor", "[destructor]") {
+    std::cout << "-----------------Ausgabe Konstruktoren-----------------------\n";
+    
+    Color red {255, 0, 0};
+    glm::vec3 position {0.0f, 0.0f, 0.0f};
+    
+    Sphere* s1 = new Sphere {position, 1.2f, "sphere0", red};
+    Shape* s2 = new Sphere {position, 1.2f, "sphere1", red};
+    
+    std::cout << "-----------------Print s1 & s2-----------------------\n";
+    s1->print(std::cout);
+    s2->print(std::cout);
+    
+    std::cout << "-----------------Ausgabe Destruktoren-----------------------\n";
+    
+    delete s1;
+    delete s2;
+}
+
+
 
 int main(int argc, char *argv[])
 {
